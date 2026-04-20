@@ -1,0 +1,8 @@
+/.idea/
+/dist/
+/out/
+/.DS_Store
+/alfis
+/alfis.init
+/alfis.toml
+/*.apk

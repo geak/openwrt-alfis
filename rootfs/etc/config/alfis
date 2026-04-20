@@ -1,0 +1,10 @@
+config alfis 'main'
+	option enabled '1'
+
+	# ALFIS stores its local chain database under this directory.
+	# Mount persistent external storage here, or change this path before starting the service.
+	# option workdir '/mnt/nvme0n1/...'
+	option workdir '/opt/alfis'
+
+	option config_file '/etc/alfis/alfis.toml'
+	option loglevel 'warn'

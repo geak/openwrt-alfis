@@ -1,0 +1,43 @@
+#!/bin/sh /etc/rc.common
+
+USE_PROCD=1
+START=95
+STOP=10
+
+. /lib/functions.sh
+
+PROG="/usr/bin/alfis"
+UCI_CONFIG="/etc/config/alfis"
+
+enabled="1"
+config_file="/etc/alfis/alfis.toml"
+workdir="/opt/alfis"
+loglevel="warn"
+
+load_uci_config() {
+	[ -f "$UCI_CONFIG" ] && config_load alfis
+
+	config_get_bool enabled main enabled "$enabled"
+	config_get config_file main config_file "$config_file"
+	config_get workdir main workdir "$workdir"
+	config_get loglevel main loglevel "$loglevel"
+}
+
+start_service() {
+	load_uci_config
+
+	[ "$enabled" = "1" ] || return 0
+	[ -x "$PROG" ] || return 1
+	[ -f "$config_file" ] || return 1
+
+	mkdir -p "$workdir" || return 1
+
+	procd_open_instance
+	procd_set_param command "$PROG" -n -w "$workdir" -c "$config_file"
+	procd_set_param env ALFIS_LOG_LEVEL="$loglevel"
+	procd_set_param file "$config_file" "$UCI_CONFIG"
+	procd_set_param stdout 1
+	procd_set_param stderr 1
+	procd_set_param respawn
+	procd_close_instance
+}

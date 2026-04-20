@@ -1,0 +1,32 @@
+diff --git a/src/main.rs b/src/main.rs
+index 7be3747..ed10bdf 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -332,6 +332,19 @@ pub fn start_services(settings: &Settings, context: &Arc<Mutex<Context>>) -> (bo
+ /// Sets up logger in accordance with command line options
+ fn setup_logger(opt_matches: &Matches, console_attached: bool) {
+-    let mut level = LevelFilter::Info;
++    let mut level = match env::var("ALFIS_LOG_LEVEL") {
++        Ok(value) => match value.to_ascii_lowercase().as_str() {
++            "error" => LevelFilter::Error,
++            "warn" | "warning" => LevelFilter::Warn,
++            "info" => LevelFilter::Info,
++            "debug" => LevelFilter::Debug,
++            "trace" => LevelFilter::Trace,
++            other => {
++                eprintln!("Unknown ALFIS_LOG_LEVEL '{}', falling back to info", other);
++                LevelFilter::Info
++            }
++        },
++        Err(_) => LevelFilter::Info,
++    };
+     if opt_matches.opt_present("d") || env::var(ALFIS_DEBUG).is_ok() {
+         level = LevelFilter::Debug;
+     }
+@@ -421,4 +434,4 @@ mod tests {
+         println!("Record is {:?}", &record);
+         println!("Record in JSON is {}", serde_json::to_string(&record).unwrap());
+     }
+-}
+\ No newline at end of file
++}
