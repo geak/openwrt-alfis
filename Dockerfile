@@ -1,4 +1,4 @@
-ARG ALFIS_REF=ce16cb7b0c595833890b4f4d2f9efe13a2454061
+ARG ALFIS_REF=97754c176b21568c4df51b0ca32275a62df4577d
 
 FROM messense/rust-musl-cross:aarch64-musl AS build
 
@@ -18,7 +18,7 @@ RUN cargo build --release --no-default-features
 FROM alpine:edge AS package
 
 ARG ALFIS_REF
-ARG PKG_VERSION=0.8.9.20260420-r1
+ARG PKG_VERSION=0.8.11.20260517-r1
 ARG PKG_ARCH=aarch64_cortex-a53
 
 WORKDIR /work

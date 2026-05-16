@@ -10,8 +10,8 @@ From the repository root:
 
 ```sh
 docker build \
-  --build-arg ALFIS_REF=ce16cb7b0c595833890b4f4d2f9efe13a2454061 \
-  --build-arg PKG_VERSION=0.8.9.20260420-r1 \
+  --build-arg ALFIS_REF=97754c176b21568c4df51b0ca32275a62df4577d \
+  --build-arg PKG_VERSION=0.8.11.20260517-r1 \
   --build-arg PKG_ARCH=aarch64_cortex-a53 \
   --output ./dist \
   .
@@ -22,15 +22,15 @@ docker build \
 Copy the package to the router and install it:
 
 ```sh
-scp ./dist/alfis-0.8.9.20260420-r1.apk root@openwrt:/tmp/
+scp ./dist/alfis-0.8.11.20260517-r1.apk root@openwrt:/tmp/
 ```
 
 On a router:
 
 ```sh
-apk verify --allow-untrusted /tmp/alfis-0.8.9.20260420-r1.apk
-apk add --simulate --allow-untrusted --force-non-repository /tmp/alfis-0.8.9.20260420-r1.apk
-apk add --allow-untrusted --force-non-repository /tmp/alfis-0.8.9.20260420-r1.apk
+apk verify --allow-untrusted /tmp/alfis-0.8.11.20260517-r1.apk
+apk add --simulate --allow-untrusted --force-non-repository /tmp/alfis-0.8.11.20260517-r1.apk
+apk add --allow-untrusted --force-non-repository /tmp/alfis-0.8.11.20260517-r1.apk
 ```
 
 Configure storage before the first start:
