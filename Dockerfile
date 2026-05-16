@@ -39,7 +39,7 @@ RUN mkdir -p /out \
     --info arch:${PKG_ARCH} \
     --info license:MIT \
     --info origin:openwrt-alfis \
-    --info maintainer:"openwrt-alfis contributors" \
+    --info maintainer:"Damir Abdullin" \
     --info url:https://github.com/Revertron/Alfis \
     --info description:"ALFIS DNS daemon package for OpenWrt" \
  && cp /rootfs/usr/bin/alfis /out/alfis \
